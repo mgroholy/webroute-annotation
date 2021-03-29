@@ -1,4 +1,6 @@
 package com.codecool.webrouteannotation.main.annotations;
+import com.codecool.webrouteannotation.main.HttpMethod;
+
 import java.lang.annotation.*;
 
 @Retention(RetentionPolicy.RUNTIME)
@@ -6,5 +8,6 @@ import java.lang.annotation.*;
 public @interface WebRoute {
 
     public String path();
+    public HttpMethod method();
 
 }
