@@ -42,13 +42,10 @@ public class RequestHandler implements HttpHandler {
             }
         }
         Set<Method> routeHandlerSet = routeHandlers.get(path);
-
-
         for(Method method: routeHandlerSet){
             if(method.getAnnotation(WebRoute.class).method() == requestMethod){
-                Method handler = method;
                 try{
-                    handler.invoke(router, httpExchange);
+                    method.invoke(router, httpExchange);
                 } catch (IllegalAccessException | InvocationTargetException e) {
                     e.printStackTrace();
                 }
