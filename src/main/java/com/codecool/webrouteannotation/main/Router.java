@@ -14,26 +14,26 @@ import java.util.stream.Collectors;
 
 public class Router {
 
-    private DummyData dummyData;
+    private DummyData dummyDataManager;
 
     public Router(DummyData dummyData) {
-        this.dummyData = dummyData;
+        this.dummyDataManager = dummyData;
     }
 
     @WebRoute(path="/employees", method=HttpMethod.GET)
     public void getEmployees(HttpExchange exchange) throws IOException {
-        ResponseHandler.sendResponse(exchange, dummyData.getEmployees().toString());
+        ResponseHandler.sendResponse(exchange, dummyDataManager.getEmployees().toString());
     }
 
-    @WebRoute(path="/employees", method= HttpMethod.POST)
+    @WebRoute(path="/employees", method=HttpMethod.POST)
     public void addEmployee(HttpExchange exchange) throws IOException {
         InputStream inputStream = exchange.getRequestBody();
         String name = new BufferedReader(
                 new InputStreamReader(inputStream, StandardCharsets.UTF_8)).lines()
                 .collect(Collectors.joining("\n"));
 
-        dummyData.addEmployee(name);
-        ResponseHandler.sendResponse(exchange, dummyData.getEmployees().toString());
+        dummyDataManager.addEmployee(name);
+        ResponseHandler.sendResponse(exchange, dummyDataManager.getEmployees().toString());
     }
 
     public void invalidPath(HttpExchange httpExchange, String endpoint) throws IOException {
